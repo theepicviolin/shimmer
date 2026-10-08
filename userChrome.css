@@ -1,4 +1,4 @@
-/*! SHIMMMER v2.40 */
+/*! SHIMMMER v2.41 */
 /*? https://github.com/nuclearcodecat/shimmer */
 
 #urlbar-container {
@@ -17,7 +17,7 @@
 	--shimmer-cbar-expanded-width: 300px;
 
 	/*? urlbar border radius */
-	--shimmer-urlbar-rounding: 16px;
+	--shimmer-urlbar-rounding: 1rem;
 	--shimmer-urlbar-inner-rounding: calc(var(--shimmer-urlbar-rounding) * .75);
 
 	/*? max tab width */
@@ -335,6 +335,23 @@
 
 /*! === navbar === */
 
+.urlbar-background, .urlbarView-background {
+	box-shadow: none !important;
+}
+
+.urlbarView-row-inner {
+	padding-inline: 0.2rem !important;
+	padding-block: 0.3rem !important;
+}
+
+.urlbarView-background {
+	border-radius: var(--shimmer-urlbar-rounding) !important;
+}
+
+#nav-bar {
+	height: 50px !important;
+}
+
 /*? rounded urlbar and box */
 :root[chromehidden*="menubar toolbar directories extrachrome"] .urlbar-background {
 	background: rgba(0, 0, 0, 0) !important;
@@ -361,9 +378,9 @@
 
 /*? make the background of extended urlbar move down and BROKEN drop a blur behind */
 @media not -moz-pref("shimmer.disable-popover-urlbar") {
-	#urlbar[breakout-extend] {
+	#urlbar[popover-open] {
 		position: fixed !important;
-		margin-top: 12vh !important;
+		margin-top: 33vh !important;
 		/* backdrop-filter: blur(8px) !important; */
 		background: rgba(0, 0, 0, 0) !important;
 		/* border-radius: 20px; */
@@ -371,39 +388,39 @@
 }
 
 @media not -moz-pref("shimmer.disable-popover-transition") {
-	#urlbar[breakout-extend] {
+	#urlbar[popover-open] {
 		transition: margin-top 0.45s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
 	}
 
 	#urlbar {
-	transition: margin-top 0.45s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+		transition: margin-top 0.45s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
 	}
 }
 
-#urlbar[breakout-extend] {
+#urlbar[popover-open] {
 	z-index: 9999 !important;
 	left: 10% !important;
 	width: calc(100vw - 20%) !important;
 }
 
 @media not -moz-pref("shimmer.disable-urlbar-background-transition") {
-	#urlbar[breakout-extend] .urlbar-background {
-		transition: all 0.1s linear !important;
+	#urlbar[popover-open] .urlbar-background {
+		transition: background 0.1s linear !important;
 	}
 }
 
 @media -moz-pref("shimmer.disable-urlbar-background-transition") {
-	#urlbar[breakout-extend] .urlbar-background {
+	#urlbar[popover-open] .urlbar-background {
 		transition: none !important;
 	}
 }
 
-#urlbar[breakout-extend] .urlbar-background {
+#urlbar[popover-open] .urlbar-background {
 	/* background: var(--toolbar-field-focus-background-color) !important; */
 }
 
 /*? urlbox backdrop */
-#urlbar[breakout-extend]::before{
+#urlbar[popover-open]::before{
 	content: '' !important;
 	width: 200vw !important;
 	height: 200vh !important;
@@ -416,23 +433,24 @@
 }
 
 /*? urlbar bigger text */
-#urlbar[breakout-extend] #urlbar-input {
+#urlbar[popover-open] #urlbar-input {
 	font-size: 1.4rem !important;
 }
 
 /*? taller urlbar for bigger text when extended */
-#urlbar[breakout-extend] .urlbar-input-container {
-	height: 48px !important;
+#urlbar[popover-open] .urlbar-input-container {
+	/* height: 48px !important; */
+	outline: none !important;
 }
 
 @media (max-width: 600px) {
-	#urlbar[breakout-extend] #urlbar-input {
+	#urlbar[popover-open] #urlbar-input {
 		font-size: 1.25rem !important;
 	}
 }
 
 /*? centered text when urlbar not in use */
-#urlbar:not(:is([breakout-extend])) #urlbar-input {
+#urlbar:not(:is([popover-open])) #urlbar-input {
 	text-align: center !important;
 }
 
@@ -445,7 +463,7 @@
 
 /*? fix for floating urlbar */
 @media -moz-pref("shimmer.nightly") {
-	#urlbar:not([breakout-extend]) {
+	#urlbar:not([popover-open]) {
 		top: auto !important;
 	}
 }
@@ -647,10 +665,11 @@ findbar:not([hidden]) {
 
 /*? make the go button bigger in urlbar */
 .urlbar-go-button {
-	height: 100% !important;
+	/* height: 100% !important; */
 	width: auto !important;
-	padding: 1.5% !important;
-	border-radius: var(--shimmer-urlbar-inner-rounding) !important;
+	padding: .4rem !important;
+	border-radius: .5rem !important;
+	height: auto !important;
 }
 
 
@@ -675,11 +694,6 @@ findbar:not([hidden]) {
 }
 .urlbarView-body-inner {
 	border: 0 !important;
-}
-
-/*? increase padding in urlbar */
-#urlbar-results {
-	padding-bottom: 8px !important;
 }
 
 /*? seamless transition */
@@ -838,8 +852,9 @@ tab-group {
 /*? make tab background round and small */
 .tab-background {
 	min-height: 0 !important;
-	border: solid 1px color-mix(in srgb, var(--tab-selected-bgcolor) 90%, #000);
+	border: solid 1px color-mix(in srgb, var(--tab-selected-bgcolor) 90%, #000) !important;
 	box-shadow: 0 0 0 #fff !important;
+	margin-block: 0.25rem !important;
 }
 
 /*? show tab close buttons when hovering tab */
@@ -939,9 +954,14 @@ spacer[part="overflow-end-indicator"], spacer[part="overflow-start-indicator"] {
 
 /*! === sidebar === */
 
+/* nova fix */
+#sidebar-box {
+	padding-inline-start: unset !important;
+}
+
 /*? hide header, or give good color */
 @media not -moz-pref("shimmer.show-sidebar-header") {
-	#sidebar-header {
+	#sidebar-header, #sidebar-panel-header {
 		display: none !important;
 	}
 }
@@ -1304,6 +1324,15 @@ treecol {
 	box-shadow: 0px 1px 3px 2px rgba(0,0,0,.15) !important;
 }
 
+/* additional nova fixes */
+
+:root {
+	--popup-border-radius: 1rem !important;
+}
+
+.subview-subheader, panelview .toolbarbutton-1, .subviewbutton, .widget-overflow-list .toolbarbutton-1 {
+	border-radius: .6rem !important;
+}
 
 
 /* fullscreen top margin fix try */

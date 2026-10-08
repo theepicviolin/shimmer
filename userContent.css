@@ -53,7 +53,7 @@
 
 .activity-stream .logo-and-wordmark,
 .showPrivate .logo-and-wordmark {
-	margin-bottom: 24px !important;
+	margin-bottom: .5rem !important;
 }
 
 .activity-stream .wordmark,
@@ -115,7 +115,7 @@ content-search-handoff-ui {
 }
 
 .activity-stream .customize-menu .close-button-wrapper::before {
-	content: 'shimmer version 2.40, check for updates at';
+	content: 'shimmer version 2.41, check for updates at';
 	display: block;
 	position: absolute;
 	top: 35%;
