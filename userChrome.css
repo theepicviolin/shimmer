@@ -1,4 +1,4 @@
-/*! SHIMMMER v2.41 */
+/*! SHIMMMER v2.42 */
 /*? https://github.com/nuclearcodecat/shimmer */
 
 #urlbar-container {
@@ -234,6 +234,10 @@
 }
 
 @supports (-moz-osx-font-smoothing: grayscale) {
+	/*? reserve space for native window controls when Sidebery hides the tabs */
+	#main-window[titlepreface="​"] #TabsToolbar {
+		min-width: max-content !important;
+	}
 	.titlebar-buttonbox-container {
 		justify-content: space-evenly !important;
 		align-items: center !important;
